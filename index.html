@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>متعقب يومي</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <div>
+          <h1>متعقب يومي متكامل</h1>
+          <p>نظرة منظمة ومريحة لكل يومك وعاداتك.</p>
+        </div>
+        <button id="enableNotifications" class="ghost-btn">تفعيل التذكيرات</button>
+      </header>
+
+      <section class="summary">
+        <div class="summary__card">
+          <h3>عداد العادة السرية</h3>
+          <p id="habitCounter">اليوم 0 - 00:00</p>
+          <small id="habitStartText">ابدأ بتحديد تاريخ البداية.</small>
+        </div>
+        <div class="summary__card">
+          <h3>الهدف 90 يوم</h3>
+          <p id="habitGoal">0/90</p>
+          <small id="habitRemaining">متبقي 90 يوم</small>
+        </div>
+        <div class="summary__card">
+          <h3>بعد 90 يوم</h3>
+          <p id="habitBeyond">0 يوم</p>
+          <small>تابع سلسلة جديدة بعد الإنجاز.</small>
+        </div>
+        <div class="summary__card highlight">
+          <h3>رسالة اليوم</h3>
+          <p id="dailyMessage">أضف رسائل تحفيزية لتظهر يوميًا.</p>
+        </div>
+      </section>
+
+      <section class="tabs">
+        <button class="tab active" data-tab="habit">العادة</button>
+        <button class="tab" data-tab="quran">الحفظ</button>
+        <button class="tab" data-tab="activity">النشاط</button>
+        <button class="tab" data-tab="savings">التحويشة</button>
+        <button class="tab" data-tab="notes">اليوميات</button>
+      </section>
+
+      <section class="panel" id="habit">
+        <h2>العادة السرية</h2>
+        <form id="habitForm" class="form-grid">
+          <label>
+            تاريخ البداية
+            <input type="date" id="habitStart" />
+          </label>
+          <label>
+            تسجيل اليوم
+            <select id="habitStatus">
+              <option value="">اختر الحالة</option>
+              <option value="completed">كملت</option>
+              <option value="relapse">انتكست</option>
+              <option value="slip">زللت</option>
+            </select>
+          </label>
+          <label>
+            ملاحظة اليوم
+            <input type="text" id="habitNote" placeholder="سبب أو تعليق سريع" />
+          </label>
+          <button type="submit" class="primary">حفظ تسجيل العادة</button>
+        </form>
+        <div class="message-manager">
+          <h4>رسائل التحفيز</h4>
+          <div class="inline">
+            <input type="text" id="messageInput" placeholder="أدخل رسالة جديدة" />
+            <button id="addMessage" class="ghost-btn" type="button">إضافة رسالة</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="quran">
+        <h2>حفظ القرآن</h2>
+        <form id="quranForm" class="form-grid">
+          <label>
+            السورة اليوم
+            <input type="text" id="quranSurah" placeholder="مثال: البقرة" />
+          </label>
+          <label>
+            رقم السورة (1-114)
+            <input type="number" id="quranNumber" min="1" max="114" />
+          </label>
+          <button type="submit" class="primary">حفظ تسجيل الحفظ</button>
+        </form>
+      </section>
+
+      <section class="panel hidden" id="activity">
+        <h2>النشاط اليومي</h2>
+        <form id="activityForm" class="form-grid">
+          <label>
+            ماذا فعلت اليوم؟
+            <input type="text" id="activityText" placeholder="مثال: مشي 30 دقيقة" />
+          </label>
+          <label>
+            وقت الموبايل (بالساعات)
+            <input type="number" id="phoneTime" min="0" step="0.5" />
+          </label>
+          <label>
+            خرجت أم لا؟
+            <select id="wentOut">
+              <option value="">اختر</option>
+              <option value="خرجت">خرجت</option>
+              <option value="قعدت">قعدت</option>
+            </select>
+          </label>
+          <label>
+            شربت كام لتر مياه؟
+            <input type="number" id="waterIntake" min="0" step="0.1" />
+          </label>
+          <button type="submit" class="primary">حفظ النشاط</button>
+        </form>
+      </section>
+
+      <section class="panel hidden" id="savings">
+        <h2>التحويشة</h2>
+        <form id="savingsForm" class="form-grid">
+          <label>
+            الهدف المالي
+            <input type="text" id="savingsGoal" placeholder="مثال: جهاز جديد" />
+          </label>
+          <label>
+            الهدف مطلوب لـ
+            <input type="text" id="savingsReason" placeholder="سبب الهدف" />
+          </label>
+          <label>
+            إجمالي المبلغ المطلوب
+            <input type="number" id="savingsTotal" min="0" step="100" />
+          </label>
+          <label>
+            المبلغ الذي حوشته اليوم
+            <input type="number" id="savingsAdded" min="0" step="50" />
+          </label>
+          <button type="submit" class="primary">حفظ الهدف</button>
+        </form>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>الهدف</th>
+                <th>السبب</th>
+                <th>المجموع</th>
+                <th>المتبقي</th>
+              </tr>
+            </thead>
+            <tbody id="savingsTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel hidden" id="notes">
+        <h2>اليوميات والملاحظات</h2>
+        <button id="openNote" class="primary">إضافة ملاحظة اليوم</button>
+        <div class="notes-list" id="notesList"></div>
+      </section>
+
+      <section class="panel">
+        <h2>جدول المتابعة اليومي</h2>
+        <div class="table-wrapper">
+          <table class="tracker">
+            <thead>
+              <tr>
+                <th>اليوم</th>
+                <th>العادة</th>
+                <th>الحفظ</th>
+                <th>النشاط</th>
+              </tr>
+            </thead>
+            <tbody id="trackerBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal hidden" id="moodModal">
+      <div class="modal__content">
+        <h3>شعورك اليوم</h3>
+        <div class="mood-options">
+          <button data-mood="😠">غاضب</button>
+          <button data-mood="😢">حزين</button>
+          <button data-mood="😔">كئيب</button>
+          <button data-mood="😊">سعيد</button>
+          <button data-mood="😁">فرح</button>
+          <button data-mood="😐">عادي</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="noteModal">
+      <div class="modal__content large">
+        <h3>ملاحظة اليوم</h3>
+        <textarea id="noteText" rows="10" placeholder="اكتب كل ما في نفسك..."></textarea>
+        <div class="modal__actions">
+          <button id="saveNote" class="primary">إضافة الملاحظة</button>
+          <button id="closeNote" class="ghost-btn">إغلاق</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="noteViewModal">
+      <div class="modal__content large">
+        <h3 id="noteViewTitle">ملاحظة</h3>
+        <textarea id="noteViewText" rows="10"></textarea>
+        <div class="modal__actions">
+          <button id="updateNote" class="primary">تعديل الملاحظة</button>
+          <button id="closeNoteView" class="ghost-btn">إغلاق</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
